@@ -1,4 +1,4 @@
-# 2D-Voxel-image
+# 2D Voxel image generation
 
 For voxel-image generation, we used `python==3.6`. You also need csv of pdb_ids for the same. For e.g. I have used here `pdb_ids.csv` file
 To get voxel images, follow the following steps:
@@ -44,4 +44,15 @@ cp ../2D-Voxel-image/axes3d.py /path/to/conda/environment/lib/python{version}/si
 * Run the code to get voxel images as output in `Voxel_output` folder
 ```python
 python -m enzynet/visualization
+```
+
+# Get voxel image features
+
+* Download the pretrained weights of Resnet50 from `https://github.com/p1halani/2D-Voxel-image.git` and rename it to `Resnet50.pth`
+
+* Use `CNN_pytorch.ipynb` to get the feature for a voxel image. (Note: you need to run this 4 times to get features for None, bp, cc, mf. In notebook, change `voxel_type` variable to do so).
+
+* Concatenate the features of all 4 voxel types. Output will be saved in `Features/concat.pkl`
+```python
+python concat.py
 ```

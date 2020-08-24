@@ -186,8 +186,9 @@ def plot_matrix_of_weights(ax, matrix_of_weights):
 if __name__ == '__main__':
     df = pd.read_csv('pdb_ids.csv')
     for row in tqdm(df.itertuples()):
-        pdb_id = row[1]
-        visualize_pdb(pdb_id, p=0, v_size=32, weights='hydropathy')
+        accession_no = row[1]
+        pdb_id = acc_pdb_map[accession_no]
+        visualize_pdb(pdb_id, p=0, v_size=32, weights='hydropathy', accession_no)
         visualize_pdb(pdb_id, p=0, v_size=32, weights='charge')
         visualize_pdb(pdb_id, p=0, v_size=32, weights='isoelectric')
         visualize_pdb(pdb_id, p=0, v_size=32)

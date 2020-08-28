@@ -13,7 +13,7 @@ from enzynet.PDB import PDB_backbone
 from enzynet.volume import adjust_size, coords_to_volume, coords_center_to_zero, weights_to_volume
 
 
-def visualize_pdb(pdb_id, p=5, v_size=32, num=1, accession_no, weights=None,
+def visualize_pdb(pdb_id, accession_no, p=5, v_size=32, num=1, weights=None,
                   max_radius=40, noise_treatment=True):
     'Plots PDB in a volume and saves it in a file'
     # Get coordinates
@@ -190,10 +190,10 @@ if __name__ == '__main__':
         accession_no = row[1]
         if accession_no not in all_accessions:
             pdb_id = row[2]
-            visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='hydropathy')
-            visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='charge')
-            visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='isoelectric')
-            visualize_pdb(pdb_id, p=0, v_size=32, accession_no)
+            visualize_pdb(pdb_id, accession_no, p=0, v_size=32, weights='hydropathy')
+            visualize_pdb(pdb_id, accession_no, p=0, v_size=32, weights='charge')
+            visualize_pdb(pdb_id, accession_no, p=0, v_size=32, weights='isoelectric')
+            visualize_pdb(pdb_id, accession_no, p=0, v_size=32)
             all_accessions.add(accession_no)
 
     print("done")

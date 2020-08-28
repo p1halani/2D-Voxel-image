@@ -1,3 +1,7 @@
+# Get pdb_id of accession number
+
+Get the csv file with only accession number and upload it on `https://www.uniprot.org/uploadlists/`. In `Select Options` section, do choose `UnitProtKB AC/ID` as   `From` field and `PDB` as `To` field. Then save the output in csv file named `pdb_ids.tsv`.
+
 # 2D Voxel image generation
 
 For voxel-image generation, we used `python==3.6`. You also need csv of pdb_ids for the same. For e.g. I have used here `pdb_ids.csv` file

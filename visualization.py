@@ -13,7 +13,7 @@ from enzynet.PDB import PDB_backbone
 from enzynet.volume import adjust_size, coords_to_volume, coords_center_to_zero, weights_to_volume
 
 
-def visualize_pdb(pdb_id, p=5, v_size=32, num=1, weights=None,
+def visualize_pdb(pdb_id, p=5, v_size=32, num=1, accession_no, weights=None,
                   max_radius=40, noise_treatment=True):
     'Plots PDB in a volume and saves it in a file'
     # Get coordinates
@@ -41,11 +41,11 @@ def visualize_pdb(pdb_id, p=5, v_size=32, num=1, weights=None,
         volume = weights_to_volume(coords, pdb.backbone_weights_ext, v_size,
                                    noise_treatment=noise_treatment)
     # Plot
-    plot_volume(volume, pdb_id, v_size, num, weights=weights)
+    plot_volume(volume, pdb_id, v_size, num, accession_no, weights=weights)
 
 # 3D plot, sources: http://stackoverflow.com/a/35978146/4124317
 #                   https://dawes.wordpress.com/2014/06/27/publication-ready-3d-figures-from-matplotlib/
-def plot_volume(volume, pdb_id, v_size, num, weights=None):
+def plot_volume(volume, pdb_id, v_size, num, accession_no, weights=None):
     'Plots volume in 3D, interpreting the coordinates as voxels'
     # Initialization
     plt.rc('text', usetex=True)
@@ -109,10 +109,10 @@ def plot_volume(volume, pdb_id, v_size, num, weights=None):
 
     # Save
     if weights == None:
-    	plt.savefig('Voxel_output/None/' + str(pdb_id) + '_' + str(v_size) + '_' +
+    	plt.savefig('Voxel_output/None/' + str(accession_no) + '_' + str(v_size) + '_' +
                 str(weights) + '_' + str(num) + '.png')
     else:
-    	plt.savefig('Voxel_output/' + weights + '/' + str(pdb_id) + '_' + str(v_size) + '_' +
+    	plt.savefig('Voxel_output/' + weights + '/' + str(accession_no) + '_' + str(v_size) + '_' +
                 str(weights) + '_' + str(num) + '.png')
 
 def cuboid_data(pos, size=(1,1,1)):
@@ -184,13 +184,13 @@ def plot_matrix_of_weights(ax, matrix_of_weights):
                                          color=cgen[normalized_weight])
 
 if __name__ == '__main__':
-    df = pd.read_csv('pdb_ids.csv')
+    df = pd.read_csv('pdb_ids.tsv')
     for row in tqdm(df.itertuples()):
         accession_no = row[1]
-        pdb_id = acc_pdb_map[accession_no]
-        visualize_pdb(pdb_id, p=0, v_size=32, weights='hydropathy', accession_no)
-        visualize_pdb(pdb_id, p=0, v_size=32, weights='charge')
-        visualize_pdb(pdb_id, p=0, v_size=32, weights='isoelectric')
-        visualize_pdb(pdb_id, p=0, v_size=32)
+        pdb_id = row[2]
+        visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='hydropathy')
+        visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='charge')
+        visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='isoelectric')
+        visualize_pdb(pdb_id, p=0, v_size=32, accession_no)
 
     print("done")

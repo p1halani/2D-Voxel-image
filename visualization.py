@@ -184,13 +184,16 @@ def plot_matrix_of_weights(ax, matrix_of_weights):
                                          color=cgen[normalized_weight])
 
 if __name__ == '__main__':
+    all_accessions = set()
     df = pd.read_csv('pdb_ids.tsv')
     for row in tqdm(df.itertuples()):
         accession_no = row[1]
-        pdb_id = row[2]
-        visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='hydropathy')
-        visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='charge')
-        visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='isoelectric')
-        visualize_pdb(pdb_id, p=0, v_size=32, accession_no)
+        if accession_no not in all_accessions:
+            pdb_id = row[2]
+            visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='hydropathy')
+            visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='charge')
+            visualize_pdb(pdb_id, p=0, v_size=32, accession_no, weights='isoelectric')
+            visualize_pdb(pdb_id, p=0, v_size=32, accession_no)
+            all_accessions.add(accession_no)
 
     print("done")
